@@ -11,7 +11,8 @@ python -m http.server 8000
 # → http://localhost:8000
 ```
 
-Live at <https://ohuru-ian.github.io/1900-st/>.
+Live at <https://ohuru-ian.github.io/1900-st/>. Every asset URL in `index.html` carries a
+`?v=N` tag; bump it on each deploy that changes CSS or JS so browsers drop cached copies.
 
 ## Scripts
 
