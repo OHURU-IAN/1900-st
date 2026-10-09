@@ -36,11 +36,50 @@ cards.forEach((card) => {
   card.append(action);
 });
 
+const scrim = document.createElement('div');
+scrim.className = 'scrim';
+scrim.hidden = true;
+document.body.append(scrim);
+
+const panels = [
+  { panel: drawer, trigger: menuButton, closer: closeMenuButton },
+  { panel: shortlistPanel, trigger: shortlistButton, closer: closeShortlistButton },
+];
+let openPanel = null;
+
 function setPanel(panel, trigger, open) {
+  const entry = panels.find((item) => item.panel === panel);
+  if (open && openPanel && openPanel !== entry) {
+    setPanel(openPanel.panel, openPanel.trigger, false);
+  }
+
   panel.classList.toggle('open', open);
   panel.setAttribute('aria-hidden', String(!open));
   trigger.setAttribute('aria-expanded', String(open));
+  scrim.hidden = !open;
+
+  if (open) {
+    openPanel = entry;
+    entry.closer.focus();
+  } else if (openPanel === entry) {
+    openPanel = null;
+    trigger.focus({ preventScroll: true });
+  }
 }
+
+function closeOpenPanel() {
+  if (openPanel) setPanel(openPanel.panel, openPanel.trigger, false);
+}
+
+scrim.addEventListener('click', closeOpenPanel);
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') closeOpenPanel();
+});
+
+drawer.querySelectorAll('nav a').forEach((link) => {
+  link.addEventListener('click', closeOpenPanel);
+});
 
 function renderShortlist() {
   shortlistCount.textContent = `(${selectedWorks.size})`;
