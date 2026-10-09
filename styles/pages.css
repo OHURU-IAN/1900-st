@@ -113,6 +113,27 @@
   color: var(--ink-mute);
 }
 
+.foot-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1.5rem;
+}
+
+.foot-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.35em;
+  transition: color var(--fast) var(--ease);
+}
+
+.foot-links a:hover {
+  color: var(--alert);
+}
+
 /* --- Narrow viewports ---------------------------------------------------------- */
 
 @media (max-width: 60rem) {

@@ -115,6 +115,17 @@
   color: var(--alert);
 }
 
+/* Links out to the sister projects, set apart from the shop's own pages. */
+.rail-elsewhere {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+}
+
+.rail-elsewhere a {
+  color: var(--ink-mute);
+}
+
 .rail-scrim {
   position: fixed;
   inset: 0;
