@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <title>Project 1900 ST — Art Catalogue, Issue 01</title>
+    <meta
+      name="description"
+      content="Project 1900 ST, Issue 01. An online viewing room of twelve contemporary works — painting, print, sculpture and photography — indexed as a printed catalogue."
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&amp;family=Space+Grotesk:wght@300..700&amp;display=swap"
+    />
+
+    <link rel="stylesheet" href="styles/tokens.css" />
+    <link rel="stylesheet" href="styles/base.css" />
+    <link rel="stylesheet" href="styles/masthead.css" />
+    <link rel="stylesheet" href="styles/hero.css" />
+    <link rel="stylesheet" href="styles/catalogue.css" />
+    <link rel="stylesheet" href="styles/sections.css" />
+    <link rel="stylesheet" href="styles/panels.css" />
+    <link rel="stylesheet" href="styles/motion.css" />
+  </head>
+
+  <body>
+    <a class="skip-link" href="#catalogue">Skip to the catalogue</a>
+
+    <!-- ============================ MASTHEAD ============================ -->
+    <header class="masthead">
+      <div class="running-head">
+        <span>Online Viewing Room</span>
+        <span aria-hidden="true" class="rule-dot">&#9670;</span>
+        <span>Issue 01 &middot; MMXXVI</span>
+        <span aria-hidden="true" class="rule-dot">&#9670;</span>
+        <span>Plates 001&ndash;012</span>
+      </div>
+
+      <div class="masthead-bar">
+        <button class="ghost-button" id="menuButton" aria-expanded="false" aria-controls="drawer">
+          <span class="button-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M3.5 7h17M3.5 12h17M3.5 17h17" stroke-linecap="round" />
+            </svg>
+          </span>
+          Contents
+        </button>
+
+        <a class="wordmark" href="#top">
+          Project <span class="wordmark-figure">1900</span> ST
+        </a>
+
+        <div class="masthead-actions">
+          <div class="search-field">
+            <label class="visually-hidden" for="searchInput">Search the catalogue</label>
+            <span class="search-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="11" cy="11" r="6.5" />
+                <path d="M16 16l4.5 4.5" stroke-linecap="round" />
+              </svg>
+            </span>
+            <input
+              id="searchInput"
+              type="search"
+              placeholder="Title, medium, artist&hellip;"
+              autocomplete="off"
+              spellcheck="false"
+            />
+          </div>
+
+          <button
+            class="ghost-button shortlist-trigger"
+            id="shortlistButton"
+            aria-expanded="false"
+            aria-controls="shortlistPanel"
+          >
+            Shortlist <span class="tally" id="shortlistCount">00</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <!-- ============================= HERO ============================= -->
+      <section class="colophon" aria-labelledby="pageTitle">
+        <div class="colophon-index" aria-hidden="true">
+          <span class="index-figure">012</span>
+          <span class="index-label">works<br />indexed</span>
+        </div>
+
+        <div class="colophon-title">
+          <p class="kicker">A catalogue of contemporary works</p>
+          <h1 id="pageTitle">
+            <span class="title-roman">Art</span>
+            <span class="title-italic">Catalogue</span>
+          </h1>
+        </div>
+
+        <div class="colophon-spec">
+          <p class="lede">
+            Twelve works, gathered for a single season and set down in the order they entered the
+            room. Paintings that were slow, prints that were fast, and two objects that refuse to
+            photograph well.
+          </p>
+          <dl class="spec-list">
+            <div><dt>Issue</dt><dd>01 &mdash; Winter</dd></div>
+            <div><dt>Media</dt><dd>Painting, print, sculpture, photography</dd></div>
+            <div><dt>Available</dt><dd>10 of 12 works</dd></div>
+            <div><dt>Enquiries</dt><dd><a href="#visit">Viewing room &darr;</a></dd></div>
+          </dl>
+        </div>
+      </section>
+
+      <div class="ornament" aria-hidden="true">
+        <span class="ornament-rule"></span>
+        <span class="ornament-mark">&#10022;</span>
+        <span class="ornament-rule"></span>
+      </div>
+
+      <!-- ========================= CONTENTS BAR ========================= -->
+      <section class="contents-bar" id="contents" aria-label="Filter the catalogue">
+        <div class="filter-set" role="group" aria-label="Filter by medium">
+          <button class="filter is-active" data-filter="all" aria-pressed="true">
+            All <span class="filter-count" data-count-for="all">12</span>
+          </button>
+          <button class="filter" data-filter="painting" aria-pressed="false">
+            Painting <span class="filter-count" data-count-for="painting">3</span>
+          </button>
+          <button class="filter" data-filter="print" aria-pressed="false">
+            Print <span class="filter-count" data-count-for="print">3</span>
+          </button>
+          <button class="filter" data-filter="sculpture" aria-pressed="false">
+            Sculpture <span class="filter-count" data-count-for="sculpture">3</span>
+          </button>
+          <button class="filter" data-filter="photo" aria-pressed="false">
+            Photography <span class="filter-count" data-count-for="photo">3</span>
+          </button>
+        </div>
+
+        <div class="contents-tools">
+          <div class="sort-field">
+            <label for="sortSelect">Order</label>
+            <select id="sortSelect">
+              <option value="plate">By plate</option>
+              <option value="price-asc">Price, low to high</option>
+              <option value="price-desc">Price, high to low</option>
+              <option value="title">Title, A&ndash;Z</option>
+            </select>
+          </div>
+          <p class="result-tally" role="status" aria-live="polite">
+            <span id="resultCount">12</span> <span class="tally-of">of 12 shown</span>
+          </p>
+          <button class="ghost-button" id="resetButton">Reset</button>
+        </div>
+      </section>
+
+      <!-- =========================== CATALOGUE ========================== -->
+      <section class="catalogue" id="catalogue" aria-labelledby="catalogueHeading">
+        <h2 class="visually-hidden" id="catalogueHeading">Works in this issue</h2>
+
+        <div class="plate-grid" id="plateGrid">
+          <noscript>
+            <p class="noscript-note">
+              This catalogue draws its plates with JavaScript. Enable it to see the works.
+            </p>
+          </noscript>
+        </div>
+
+        <p class="empty-state" id="emptyState" hidden>
+          <span class="empty-mark" aria-hidden="true">&#10005;</span>
+          No plate in this issue matches that.
+          <button class="link-button" data-reset>Clear the filters</button>
+        </p>
+      </section>
+
+      <!-- ============================ ARCHIVE =========================== -->
+      <section class="archive" id="archive" aria-labelledby="archiveHeading">
+        <header class="section-head">
+          <p class="section-mark">&sect; 02</p>
+          <h2 id="archiveHeading">Archive</h2>
+          <p class="section-note">
+            Works from previous issues, held in storage. Records only &mdash; no images are kept
+            online.
+          </p>
+        </header>
+
+        <ol class="archive-list">
+          <li>
+            <span class="archive-no">A&ndash;041</span>
+            <span class="archive-title">Two Grey Doors</span>
+            <span class="archive-meta">Oil on board, 2023</span>
+            <span class="archive-state">Private collection</span>
+          </li>
+          <li>
+            <span class="archive-no">A&ndash;039</span>
+            <span class="archive-title">Notes for a Wall</span>
+            <span class="archive-meta">Graphite on paper, 2023</span>
+            <span class="archive-state">Sold</span>
+          </li>
+          <li>
+            <span class="archive-no">A&ndash;034</span>
+            <span class="archive-title">Harbour, Long Exposure</span>
+            <span class="archive-meta">Gelatin silver print, 2022</span>
+            <span class="archive-state">Museum loan</span>
+          </li>
+          <li>
+            <span class="archive-no">A&ndash;028</span>
+            <span class="archive-title">Bench Fragment</span>
+            <span class="archive-meta">Concrete and brass, 2022</span>
+            <span class="archive-state">Private collection</span>
+          </li>
+          <li>
+            <span class="archive-no">A&ndash;017</span>
+            <span class="archive-title">Yellow Proof, State II</span>
+            <span class="archive-meta">Lithograph, 2021</span>
+            <span class="archive-state">Held by the estate</span>
+          </li>
+        </ol>
+      </section>
+
+      <!-- ============================ ARTISTS =========================== -->
+      <section class="artists" id="artists" aria-labelledby="artistsHeading">
+        <header class="section-head">
+          <p class="section-mark">&sect; 03</p>
+          <h2 id="artistsHeading">Artists</h2>
+          <p class="section-note">Four practices, none of which agree with each other.</p>
+        </header>
+
+        <ul class="artist-index">
+          <li>
+            <button class="artist-row" data-artist="Margit Sand">
+              <span class="artist-name">Margit Sand</span>
+              <span class="artist-note">Painting &middot; b. 1979, Aarhus</span>
+              <span class="artist-count">3 works</span>
+              <span class="artist-arrow" aria-hidden="true">&rarr;</span>
+            </button>
+          </li>
+          <li>
+            <button class="artist-row" data-artist="Rui Kestrel">
+              <span class="artist-name">Rui Kestrel</span>
+              <span class="artist-note">Print and editions &middot; b. 1988, Porto</span>
+              <span class="artist-count">3 works</span>
+              <span class="artist-arrow" aria-hidden="true">&rarr;</span>
+            </button>
+          </li>
+          <li>
+            <button class="artist-row" data-artist="H. Anselm">
+              <span class="artist-name">H. Anselm</span>
+              <span class="artist-note">Sculpture &middot; b. 1966, Basel</span>
+              <span class="artist-count">3 works</span>
+              <span class="artist-arrow" aria-hidden="true">&rarr;</span>
+            </button>
+          </li>
+          <li>
+            <button class="artist-row" data-artist="Iva Reyes">
+              <span class="artist-name">Iva Reyes</span>
+              <span class="artist-note">Photography &middot; b. 1991, Manila</span>
+              <span class="artist-count">3 works</span>
+              <span class="artist-arrow" aria-hidden="true">&rarr;</span>
+            </button>
+          </li>
+        </ul>
+      </section>
+
+      <!-- ========================== VIEWING ROOM ======================== -->
+      <section class="viewing-room" id="visit" aria-labelledby="visitHeading">
+        <header class="section-head">
+          <p class="section-mark">&sect; 04</p>
+          <h2 id="visitHeading">Viewing room</h2>
+          <p class="section-note">
+            Works are shown by appointment, one at a time, in daylight. Send a shortlist and we will
+            reply with condition notes and a time.
+          </p>
+        </header>
+
+        <form class="enquiry" id="enquiryForm" novalidate>
+          <div class="field">
+            <label for="enquiryName">Name</label>
+            <input id="enquiryName" name="name" type="text" autocomplete="name" required />
+          </div>
+          <div class="field">
+            <label for="enquiryEmail">Email</label>
+            <input id="enquiryEmail" name="email" type="email" autocomplete="email" required />
+          </div>
+          <div class="field field-wide">
+            <label for="enquiryNote">Note</label>
+            <textarea
+              id="enquiryNote"
+              name="note"
+              rows="3"
+              placeholder="Works you would like to see, and when."
+            ></textarea>
+          </div>
+          <p class="enquiry-attached" id="enquiryAttached">
+            No works attached &mdash; your shortlist is empty.
+          </p>
+          <button class="solid-button" type="submit">Send enquiry</button>
+          <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+    </main>
+
+    <!-- ============================ COLOPHON ============================ -->
+    <footer class="footer">
+      <div class="footer-grid">
+        <div>
+          <p class="footer-mark">Project 1900 ST</p>
+          <p class="footer-note">
+            1900 Steinway, second floor.<br />
+            Thursday to Saturday, by appointment.
+          </p>
+        </div>
+        <div>
+          <p class="footer-mark">Set in</p>
+          <p class="footer-note">Fraunces &amp; Space Grotesk.<br />Printed nowhere.</p>
+        </div>
+        <div>
+          <p class="footer-mark">Issue 01</p>
+          <p class="footer-note">Twelve plates.<br />Prices exclude framing and freight.</p>
+        </div>
+      </div>
+      <p class="footer-baseline">&copy; MMXXVI Project 1900 ST &mdash; a fictional catalogue.</p>
+    </footer>
+
+    <!-- ========================= CONTENTS DRAWER ======================== -->
+    <aside class="drawer panel" id="drawer" aria-hidden="true" aria-label="Catalogue contents">
+      <div class="panel-head">
+        <span class="panel-title">Contents</span>
+        <button class="ghost-button" id="closeMenuButton">Close</button>
+      </div>
+      <nav class="drawer-nav">
+        <a href="#catalogue" data-nav><span class="nav-no">01</span> Featured works</a>
+        <a href="#catalogue" data-nav data-apply-filter="print"
+          ><span class="nav-no">02</span> Limited editions</a
+        >
+        <a href="#archive" data-nav><span class="nav-no">03</span> Archive</a>
+        <a href="#artists" data-nav><span class="nav-no">04</span> Artists</a>
+        <a href="#visit" data-nav><span class="nav-no">05</span> Viewing room</a>
+      </nav>
+      <p class="drawer-foot">Everything here is fictional, including the prices.</p>
+    </aside>
+
+    <!-- ========================= SHORTLIST DRAWER ======================= -->
+    <aside class="shortlist panel" id="shortlistPanel" aria-hidden="true" aria-label="Your shortlist">
+      <div class="panel-head">
+        <span class="panel-title">Your shortlist</span>
+        <button class="ghost-button" id="closeShortlistButton">Close</button>
+      </div>
+      <p class="shortlist-empty" id="shortlistEmpty">
+        Nothing selected yet. Add a plate and it will be held here.
+      </p>
+      <ul class="shortlist-items" id="shortlistItems"></ul>
+      <div class="shortlist-foot" id="shortlistFoot" hidden>
+        <div class="shortlist-total">
+          <span>Indicative total</span>
+          <span id="shortlistTotal">&mdash;</span>
+        </div>
+        <a class="solid-button" href="#visit" data-close-shortlist>Send to viewing room</a>
+        <button class="link-button" id="clearShortlist">Clear shortlist</button>
+      </div>
+    </aside>
+
+    <div class="scrim" id="scrim" hidden></div>
+
+    <!-- =========================== ENTRY DIALOG ========================= -->
+    <dialog class="entry" id="entryDialog" aria-labelledby="entryTitle">
+      <article class="entry-inner">
+        <button class="entry-close" id="entryClose" aria-label="Close entry">&#10005;</button>
+        <div class="entry-plate" id="entryPlate"></div>
+        <div class="entry-body">
+          <p class="entry-no" id="entryNo">No. 000</p>
+          <h2 class="entry-title" id="entryTitle">&mdash;</h2>
+          <p class="entry-artist" id="entryArtist">&mdash;</p>
+          <dl class="entry-spec" id="entrySpec"></dl>
+          <p class="entry-note" id="entryNote"></p>
+          <div class="entry-foot">
+            <span class="entry-price" id="entryPrice">&mdash;</span>
+            <button class="solid-button" id="entryShortlist">Add to shortlist</button>
+          </div>
+          <div class="entry-nav">
+            <button class="link-button" id="entryPrev">&larr; Previous plate</button>
+            <button class="link-button" id="entryNext">Next plate &rarr;</button>
+          </div>
+        </div>
+      </article>
+    </dialog>
+
+    <script src="js/works.js" defer></script>
+    <script src="js/plates.js" defer></script>
+    <script src="js/catalogue.js" defer></script>
+    <script src="js/shortlist.js" defer></script>
+    <script src="js/entry.js" defer></script>
+    <script src="js/panels.js" defer></script>
+    <script src="js/motion.js" defer></script>
+    <script src="js/main.js" defer></script>
+  </body>
+</html>

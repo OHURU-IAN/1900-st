@@ -1,0 +1,140 @@
+/* ==========================================================================
+   Top bar — search, cart, checkout. Sits over the content, right-aligned.
+   ========================================================================== */
+
+.topbar {
+  position: fixed;
+  top: 0.4rem;
+  right: 0;
+  left: var(--rail-w);
+  z-index: var(--z-topbar);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: clamp(1rem, 0.4rem + 1.6vw, 2.5rem);
+  height: var(--topbar-h);
+  padding: 0 var(--pad);
+  background-color: var(--ground);
+  transition: background-color var(--mid) var(--ease);
+}
+
+/* --- Search --------------------------------------------------------------- */
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: min(22rem, 30vw);
+}
+
+.search-mark {
+  flex: none;
+  display: inline-flex;
+  color: var(--ink);
+}
+
+.search-mark svg {
+  width: 1.35rem;
+  height: 1.35rem;
+}
+
+/* --- Links ---------------------------------------------------------------- */
+
+.topbar-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 2.75rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: var(--t-base);
+  letter-spacing: var(--track);
+  color: var(--ink);
+  white-space: nowrap;
+  transition: color var(--fast) var(--ease);
+}
+
+.topbar-link:hover {
+  color: var(--alert);
+}
+
+.cart-mark svg {
+  display: block;
+  width: 1.6rem;
+  height: 1.6rem;
+}
+
+.cart-trigger.has-items {
+  color: var(--alert);
+}
+
+/* --- Rail toggle (small screens only) -------------------------------------- */
+
+.rail-toggle {
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  margin-right: auto;
+  min-height: 2.75rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: var(--t-base);
+  color: var(--ink);
+}
+
+.rail-toggle svg {
+  display: block;
+  width: 1.35rem;
+  height: 1.35rem;
+}
+
+/* --- Narrow viewports ------------------------------------------------------ */
+
+@media (max-width: 60rem) {
+  .topbar {
+    left: 0;
+    gap: 1rem;
+  }
+
+  .rail-toggle {
+    display: inline-flex;
+  }
+
+  .search {
+    width: auto;
+    flex: 1;
+    min-width: 0;
+    max-width: 14rem;
+  }
+
+  .topbar-link .label-long {
+    display: none;
+  }
+}
+
+@media (max-width: 40rem) {
+  .search input {
+    display: none;
+  }
+
+  .search {
+    flex: none;
+    width: auto;
+  }
+
+  .search.is-open {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    width: auto;
+    padding: 0 var(--pad) 0.75rem;
+    background-color: var(--ground);
+  }
+
+  .search.is-open input {
+    display: block;
+  }
+}

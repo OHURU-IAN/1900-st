@@ -1,0 +1,318 @@
+/* ==========================================================================
+   Archive, artist index, viewing room, colophon footer
+   ========================================================================== */
+
+.section-head {
+  display: grid;
+  grid-template-columns: minmax(5.5rem, 9rem) minmax(0, 1fr);
+  gap: var(--space-md) var(--space-xl);
+  align-items: baseline;
+  padding-bottom: var(--space-lg);
+}
+
+.section-head h2 {
+  font-size: var(--text-section);
+  font-weight: 300;
+  font-variation-settings: "opsz" 120, "WONK" 1;
+}
+
+.section-mark {
+  font-variant-numeric: tabular-nums;
+}
+
+.section-note {
+  grid-column: 2;
+  max-width: 46ch;
+  font-size: var(--text-small);
+  color: var(--ink-muted);
+  text-wrap: pretty;
+}
+
+.archive,
+.artists,
+.viewing-room {
+  padding: var(--space-section) var(--gutter);
+  border-top: 1px solid var(--rule-mid);
+}
+
+.archive {
+  background-color: var(--paper-recessed);
+}
+
+/* --- Archive: records only, set as a ledger -------------------------------- */
+
+.archive-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--rule-firm);
+}
+
+.archive-list li {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 0.8fr);
+  gap: var(--space-md);
+  align-items: baseline;
+  padding: var(--space-sm) 0;
+  border-bottom: 1px solid var(--rule-hair);
+  font-size: var(--text-small);
+}
+
+.archive-no {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: var(--tracking-wide);
+  color: var(--ink-muted);
+}
+
+.archive-title {
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  font-variation-settings: "opsz" 30, "WONK" 1;
+}
+
+.archive-meta,
+.archive-state {
+  color: var(--ink-muted);
+}
+
+.archive-state {
+  text-align: right;
+  font-size: var(--text-micro);
+  letter-spacing: var(--tracking-mark);
+  text-transform: uppercase;
+}
+
+/* --- Artists: an index that fills with ink on hover ------------------------ */
+
+.artist-index {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--rule-firm);
+}
+
+.artist-index li {
+  border-bottom: 1px solid var(--rule-hair);
+}
+
+.artist-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) 6rem 2rem;
+  gap: var(--space-md);
+  align-items: baseline;
+  width: 100%;
+  padding: var(--space-md) var(--space-sm);
+  border: 0;
+  background: none;
+  text-align: left;
+  transition:
+    background-color var(--dur-mid) var(--ease-out),
+    color var(--dur-mid) var(--ease-out),
+    padding-left var(--dur-mid) var(--ease-out);
+}
+
+.artist-row:hover {
+  background-color: var(--ink);
+  color: var(--paper);
+  padding-left: var(--space-md);
+}
+
+.artist-name {
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 1rem + 1.4vw, 2.25rem);
+  font-weight: 300;
+  font-variation-settings: "opsz" 72, "WONK" 1;
+  line-height: 1.05;
+}
+
+.artist-note,
+.artist-count {
+  font-size: var(--text-small);
+  color: var(--ink-muted);
+  transition: color var(--dur-mid) var(--ease-out);
+}
+
+.artist-row:hover .artist-note,
+.artist-row:hover .artist-count {
+  color: color-mix(in srgb, var(--paper) 76%, transparent);
+}
+
+.artist-count {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: var(--tracking-wide);
+}
+
+.artist-arrow {
+  justify-self: end;
+  opacity: 0;
+  transform: translateX(-0.4rem);
+  transition:
+    opacity var(--dur-mid) var(--ease-out),
+    transform var(--dur-mid) var(--ease-out);
+}
+
+.artist-row:hover .artist-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* --- Viewing room --------------------------------------------------------- */
+
+/* The form hangs from the same column as the section heading, rather than
+   starting at the page gutter and reading as an accident. */
+.viewing-room {
+  display: grid;
+  grid-template-columns: minmax(5.5rem, 9rem) minmax(0, 1fr);
+  gap: 0 var(--space-xl);
+}
+
+.viewing-room .section-head {
+  grid-column: 1 / -1;
+}
+
+.enquiry {
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-md);
+  align-items: end;
+  max-width: 46rem;
+  padding: var(--space-lg);
+  border: 1px solid var(--rule-mid);
+  background-color: var(--paper-plate);
+}
+
+.field {
+  display: grid;
+  gap: var(--space-xs);
+}
+
+.field-wide {
+  grid-column: 1 / -1;
+}
+
+.enquiry-attached {
+  grid-column: 1 / -1;
+  padding: var(--space-sm) 0;
+  border-top: 1px solid var(--rule-hair);
+  font-size: var(--text-small);
+  color: var(--ink-muted);
+}
+
+.enquiry-attached.has-items {
+  color: var(--ink);
+}
+
+.form-status {
+  grid-column: 1 / -1;
+  min-height: 1.25rem;
+  font-size: var(--text-small);
+  color: var(--ink-accent);
+}
+
+.field.is-invalid input,
+.field.is-invalid textarea {
+  border-color: var(--ink-accent);
+}
+
+.field-error {
+  font-size: var(--text-micro);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--ink-accent);
+}
+
+/* --- Colophon footer ------------------------------------------------------ */
+
+.footer {
+  padding: var(--space-xl) var(--gutter) var(--space-lg);
+  border-top: 1px solid var(--rule-firm);
+  background-color: var(--ink);
+  color: var(--paper);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-lg);
+  padding-bottom: var(--space-lg);
+  border-bottom: 1px solid rgba(242, 237, 227, 0.22);
+}
+
+.footer-mark {
+  margin-bottom: var(--space-xs);
+  color: color-mix(in srgb, var(--paper) 70%, transparent);
+}
+
+.footer-note {
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  font-variation-settings: "opsz" 24, "WONK" 1;
+  line-height: 1.45;
+}
+
+.footer-baseline {
+  padding-top: var(--space-md);
+  font-size: var(--text-micro);
+  letter-spacing: var(--tracking-mark);
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--paper) 62%, transparent);
+}
+
+/* --- Narrow viewports ----------------------------------------------------- */
+
+@media (max-width: 64rem) {
+  .archive-list li {
+    grid-template-columns: 4.5rem minmax(0, 1fr);
+    row-gap: var(--space-hair);
+  }
+
+  .archive-meta {
+    grid-column: 2;
+  }
+
+  .archive-state {
+    grid-column: 2;
+    text-align: left;
+  }
+
+  .artist-row {
+    grid-template-columns: minmax(0, 1fr) 5rem;
+  }
+
+  .artist-note {
+    grid-column: 1;
+  }
+
+  .artist-arrow {
+    display: none;
+  }
+}
+
+@media (max-width: 48rem) {
+  .section-head {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-xs);
+  }
+
+  .section-note {
+    grid-column: 1;
+    margin-top: var(--space-xs);
+  }
+
+  .viewing-room {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .enquiry {
+    grid-column: 1 / -1;
+    grid-template-columns: minmax(0, 1fr);
+    padding: var(--space-md);
+  }
+
+  .footer-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-md);
+  }
+}

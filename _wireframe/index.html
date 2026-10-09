@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PROJECT 1900 ST | Art Catalogue Wireframe</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <button class="text-button" id="menuButton" aria-expanded="false" aria-controls="drawer">Menu</button>
+      <a class="brand" href="#" aria-label="Project 1900 ST home">PROJECT 1900 ST</a>
+      <div class="header-actions">
+        <label class="search-label" for="searchInput">Search</label>
+        <input id="searchInput" type="search" placeholder="Search catalogue" autocomplete="off" />
+        <button class="text-button" id="shortlistButton" aria-expanded="false" aria-controls="shortlistPanel">
+          Shortlist <span id="shortlistCount">(0)</span>
+        </button>
+      </div>
+    </header>
+
+    <aside class="drawer" id="drawer" aria-hidden="true">
+      <div class="drawer-head">
+        <span>Catalogue</span>
+        <button class="text-button" id="closeMenuButton">Close</button>
+      </div>
+      <nav aria-label="Catalogue sections">
+        <a href="#featured">Featured Works</a>
+        <a href="#editions">Limited Editions</a>
+        <a href="#archive">Archive</a>
+        <a href="#artists">Artists</a>
+        <a href="#visit">Viewing Room</a>
+      </nav>
+    </aside>
+
+    <main>
+      <section class="hero" aria-labelledby="pageTitle">
+        <div>
+          <p class="kicker">Online Viewing Room / Issue 01</p>
+          <h1 id="pageTitle">Art Catalogue</h1>
+        </div>
+        <p class="hero-copy">
+          A stark wireframe catalogue for browsing contemporary works, editions, and archival pieces.
+        </p>
+      </section>
+
+      <section class="toolbar" aria-label="Catalogue filters">
+        <div class="filter-group" role="tablist" aria-label="Medium">
+          <button class="filter active" data-filter="all" role="tab" aria-selected="true">All</button>
+          <button class="filter" data-filter="painting" role="tab" aria-selected="false">Painting</button>
+          <button class="filter" data-filter="print" role="tab" aria-selected="false">Print</button>
+          <button class="filter" data-filter="sculpture" role="tab" aria-selected="false">Sculpture</button>
+          <button class="filter" data-filter="photo" role="tab" aria-selected="false">Photo</button>
+        </div>
+        <button class="text-button" id="resetButton">Reset</button>
+      </section>
+
+      <section class="catalogue-grid" id="featured" aria-label="Artworks">
+        <article class="art-card" data-category="painting">
+          <div class="art-image tall"></div>
+          <a href="#">NO. 001 / STUDY IN BLACK</a>
+          <p>Oil on canvas, 2026</p>
+          <span>$4,200</span>
+        </article>
+        <article class="art-card" data-category="print">
+          <div class="art-image"></div>
+          <a href="#">NO. 002 / SIGNAL PROOF</a>
+          <p>Screenprint, edition of 30</p>
+          <span>$650</span>
+        </article>
+        <article class="art-card" data-category="sculpture">
+          <div class="art-image block"></div>
+          <a href="#">NO. 003 / FLOOR RELIC</a>
+          <p>Cast plaster and pigment</p>
+          <span>On request</span>
+        </article>
+        <article class="art-card sold" data-category="photo">
+          <div class="art-image wide"></div>
+          <a href="#">NO. 004 / NIGHT WINDOW</a>
+          <p>Archival pigment print</p>
+          <span>$1,100 - Reserved</span>
+        </article>
+        <article class="art-card" data-category="painting">
+          <div class="art-image"></div>
+          <a href="#">NO. 005 / RED ROOM FIELD</a>
+          <p>Acrylic and charcoal</p>
+          <span>$3,800</span>
+        </article>
+        <article class="art-card" data-category="print">
+          <div class="art-image tall"></div>
+          <a href="#">NO. 006 / SMALL POSTER SET</a>
+          <p>Risograph, set of 4</p>
+          <span>$220</span>
+        </article>
+        <article class="art-card" data-category="photo">
+          <div class="art-image block"></div>
+          <a href="#">NO. 007 / CITY NEGATIVE</a>
+          <p>Silver gelatin print</p>
+          <span>$900</span>
+        </article>
+        <article class="art-card sold" data-category="sculpture">
+          <div class="art-image"></div>
+          <a href="#">NO. 008 / STEEL MARKER</a>
+          <p>Steel, wax, graphite</p>
+          <span>Sold</span>
+        </article>
+        <article class="art-card" data-category="painting">
+          <div class="art-image wide"></div>
+          <a href="#">NO. 009 / UNDERPAINT MAP</a>
+          <p>Mixed media on linen</p>
+          <span>$5,400</span>
+        </article>
+        <article class="art-card" data-category="print">
+          <div class="art-image block"></div>
+          <a href="#">NO. 010 / BLUE EDITION</a>
+          <p>Monotype on cotton rag</p>
+          <span>$780</span>
+        </article>
+        <article class="art-card" data-category="photo">
+          <div class="art-image"></div>
+          <a href="#">NO. 011 / EMPTY STAGE</a>
+          <p>C-print, edition of 12</p>
+          <span>$1,350</span>
+        </article>
+        <article class="art-card" data-category="sculpture">
+          <div class="art-image tall"></div>
+          <a href="#">NO. 012 / TABLE OBJECT</a>
+          <p>Ceramic and oxide glaze</p>
+          <span>$2,100</span>
+        </article>
+      </section>
+    </main>
+
+    <aside class="shortlist" id="shortlistPanel" aria-hidden="true">
+      <div class="drawer-head">
+        <span>Your Shortlist</span>
+        <button class="text-button" id="closeShortlistButton">Close</button>
+      </div>
+      <div class="shortlist-empty" id="shortlistEmpty">No works selected</div>
+      <ul id="shortlistItems"></ul>
+    </aside>
+
+    <template id="artActionsTemplate">
+      <button class="select-work" type="button">Add to shortlist</button>
+    </template>
+
+    <script src="script.js"></script>
+  </body>
+</html>

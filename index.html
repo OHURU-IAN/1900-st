@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>PROJECT 1900 ST</title>
+    <meta
+      name="description"
+      content="PROJECT 1900 ST — garments and objects, released in drops. Next release counting down."
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap"
+    />
+
+    <link rel="stylesheet" href="styles/tokens.css" />
+    <link rel="stylesheet" href="styles/base.css" />
+    <link rel="stylesheet" href="styles/rail.css" />
+    <link rel="stylesheet" href="styles/topbar.css" />
+    <link rel="stylesheet" href="styles/shop.css" />
+    <link rel="stylesheet" href="styles/pages.css" />
+    <link rel="stylesheet" href="styles/panels.css" />
+    <link rel="stylesheet" href="styles/drop.css" />
+    <link rel="stylesheet" href="styles/motion.css" />
+  </head>
+
+  <body>
+    <a class="skip-link" href="#shop">Skip to the shop</a>
+
+    <div class="top-rule" aria-hidden="true"></div>
+
+    <!-- ============================== TOP BAR ============================== -->
+    <div class="topbar">
+      <button class="rail-toggle" id="railToggle" aria-expanded="false" aria-controls="rail">
+        <span aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path d="M3 7h18M3 12h18M3 17h18" stroke-linecap="square" />
+          </svg>
+        </span>
+        Menu
+      </button>
+
+      <form class="search" id="searchForm" role="search">
+        <label class="visually-hidden" for="searchInput">Search the shop</label>
+        <span class="search-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="10.5" cy="10.5" r="6.5" />
+            <path d="M15.5 15.5L21 21" stroke-linecap="square" />
+          </svg>
+        </span>
+        <input id="searchInput" type="search" placeholder="Search" autocomplete="off" spellcheck="false" />
+      </form>
+
+      <button class="topbar-link cart-trigger" id="cartButton" aria-expanded="false" aria-controls="cartPanel">
+        <span class="cart-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path d="M2.5 4h3l2.2 10.5h10.1L20 7H6.2" stroke-linecap="square" />
+            <circle cx="9.5" cy="19" r="1.6" />
+            <circle cx="17" cy="19" r="1.6" />
+          </svg>
+        </span>
+        Cart (<span id="cartCount">0</span>)
+      </button>
+
+      <a class="topbar-link" href="#checkout" id="checkoutLink">Checkout</a>
+    </div>
+
+    <!-- =============================== RAIL =============================== -->
+    <aside class="rail" id="rail" aria-label="Main">
+      <a class="mark" href="#top" aria-label="PROJECT 1900 ST — home">
+        <span class="mark-emblem" id="markEmblem" aria-hidden="true"></span>
+        <span class="visually-hidden">PROJECT 1900 ST</span>
+      </a>
+
+      <nav class="rail-nav" aria-label="Collections">
+        <button class="rail-link is-active" data-filter="new" aria-pressed="true">New</button>
+        <button class="rail-link" data-filter="classics" aria-pressed="false">Classics</button>
+        <button class="rail-link" data-filter="all" aria-pressed="false">Everything</button>
+      </nav>
+
+      <div class="rail-icons">
+        <a class="icon-button" href="#newsletter" aria-label="Follow the label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="4.5" />
+            <circle cx="12" cy="12" r="4.2" />
+            <circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none" />
+          </svg>
+        </a>
+        <button class="icon-button" id="themeToggle" aria-pressed="false" aria-label="Switch to dark theme">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6" />
+            <path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" />
+          </svg>
+        </button>
+      </div>
+
+      <nav class="rail-pages" aria-label="Information">
+        <a href="#archive">Archive</a>
+        <a href="#newsletter">Newsletter</a>
+        <a href="#shipping">Shipping policy</a>
+        <a href="#terms">Terms of service</a>
+      </nav>
+    </aside>
+
+    <div class="rail-scrim" id="railScrim" hidden></div>
+
+    <!-- =============================== MAIN =============================== -->
+    <main class="main" id="top">
+      <section class="shop" id="shop" aria-labelledby="shopHeading">
+        <div class="shop-head">
+          <h1 id="shopHeading" class="shop-title">
+            <span id="collectionName">New</span>
+            <span class="shop-tally"><span id="resultCount">0</span> pieces</span>
+          </h1>
+          <button class="text-link" id="clearSearch" hidden>Clear search</button>
+        </div>
+
+        <div class="product-grid" id="productGrid">
+          <noscript>
+            <p class="noscript-note">This shop draws its garments with JavaScript. Enable it to see the release.</p>
+          </noscript>
+        </div>
+
+        <p class="empty-state" id="emptyState" hidden>
+          Nothing in this release matches that.
+          <button class="text-link" data-reset>Show everything</button>
+        </p>
+      </section>
+
+      <!-- ============================= ARCHIVE ============================ -->
+      <section class="page" id="archive" aria-labelledby="archiveHeading">
+        <h2 id="archiveHeading">Archive</h2>
+        <p class="page-lede">
+          Past releases, all sold through. Records are kept so you can date a piece; nothing here
+          returns to stock.
+        </p>
+        <ol class="archive-list">
+          <li><span>Drop 06</span><span>Reservoir Crewneck [Ash]</span><span>Nov 2025</span><span>Sold out</span></li>
+          <li><span>Drop 05</span><span>Nightwatch Cargo [Sand]</span><span>Aug 2025</span><span>Sold out</span></li>
+          <li><span>Drop 04</span><span>Tower Tee [Oxblood]</span><span>May 2025</span><span>Sold out</span></li>
+          <li><span>Drop 03</span><span>ST Zip Hoodie [Forest]</span><span>Feb 2025</span><span>Sold out</span></li>
+          <li><span>Drop 02</span><span>Signal Beanie [Blaze]</span><span>Nov 2024</span><span>Sold out</span></li>
+          <li><span>Drop 01</span><span>ST Sweatpant [Charcoal]</span><span>Aug 2024</span><span>Sold out</span></li>
+        </ol>
+      </section>
+
+      <!-- =========================== NEWSLETTER =========================== -->
+      <section class="page" id="newsletter" aria-labelledby="newsletterHeading">
+        <h2 id="newsletterHeading">Newsletter</h2>
+        <p class="page-lede">
+          Drops are announced once, by email, an hour before they go live. No other mail is sent.
+        </p>
+        <form class="signup" id="signupForm" novalidate>
+          <div class="field">
+            <label class="visually-hidden" for="signupEmail">Email address</label>
+            <input id="signupEmail" name="email" type="email" placeholder="Email address" autocomplete="email" required />
+          </div>
+          <button class="solid-button" type="submit">Join the list</button>
+          <p class="form-status" id="signupStatus" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <!-- ============================ SHIPPING ============================ -->
+      <section class="page" id="shipping" aria-labelledby="shippingHeading">
+        <h2 id="shippingHeading">Shipping policy</h2>
+        <div class="page-columns">
+          <div>
+            <h3>Dispatch</h3>
+            <p>
+              Orders are packed in the order they were placed and leave the unit within five working
+              days of a drop closing. You get one tracking mail when the parcel moves.
+            </p>
+          </div>
+          <div>
+            <h3>Rates</h3>
+            <p>
+              United Kingdom, tracked 48: £4.50, free over £150. Europe: £12. Rest of world: £22.
+              Duties are not included and are the buyer's responsibility.
+            </p>
+          </div>
+          <div>
+            <h3>Returns</h3>
+            <p>
+              Fourteen days from delivery, unworn, tags on. Drop pieces are made once, so an
+              exchange depends on what came back. Refunds go to the original card.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================== TERMS ============================= -->
+      <section class="page" id="terms" aria-labelledby="termsHeading">
+        <h2 id="termsHeading">Terms of service</h2>
+        <div class="page-columns">
+          <div>
+            <h3>Orders</h3>
+            <p>
+              An order is an offer to buy. It is accepted when the parcel is dispatched. Stock is
+              counted at the moment of payment; oversold items are refunded in full within 24 hours.
+            </p>
+          </div>
+          <div>
+            <h3>One per person</h3>
+            <p>
+              Drops are limited to one of each piece per household. Orders that look like resale
+              stacking are cancelled and refunded, and the address is not served again.
+            </p>
+          </div>
+          <div>
+            <h3>Demonstration</h3>
+            <p>
+              This storefront is a build, not a business. Every product, price and policy below is
+              invented, no payment is taken, and no email is collected.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <footer class="foot" id="checkout">
+        <p>PROJECT 1900 ST — 1900 Steinway, second floor.</p>
+        <p>&copy; MMXXVI. A fictional label.</p>
+      </footer>
+    </main>
+
+    <!-- ============================ CART PANEL ============================ -->
+    <aside class="cart" id="cartPanel" aria-hidden="true" aria-label="Your cart">
+      <div class="panel-head">
+        <span>Cart</span>
+        <button class="text-link" id="closeCartButton">Close</button>
+      </div>
+      <p class="cart-empty" id="cartEmpty">Your cart is empty.</p>
+      <ul class="cart-items" id="cartItems"></ul>
+      <div class="cart-foot" id="cartFoot" hidden>
+        <div class="cart-total"><span>Subtotal</span><span id="cartTotal">£0.00</span></div>
+        <p class="cart-note">Shipping calculated at checkout. Drop closes when the timer ends.</p>
+        <button class="solid-button" id="cartCheckout">Checkout</button>
+        <button class="text-link" id="clearCart">Empty cart</button>
+      </div>
+    </aside>
+
+    <div class="scrim" id="scrim" hidden></div>
+
+    <!-- =========================== PRODUCT DIALOG ========================= -->
+    <dialog class="product" id="productDialog" aria-labelledby="productTitle">
+      <div class="product-inner">
+        <button class="product-close" id="productClose" aria-label="Close">&#10005;</button>
+        <div class="product-figure" id="productFigure"></div>
+        <div class="product-body">
+          <p class="product-drop" id="productDrop">Drop 07</p>
+          <h2 class="product-name" id="productTitle">&mdash;</h2>
+          <p class="product-price" id="productPrice">&mdash;</p>
+          <p class="product-copy" id="productCopy"></p>
+
+          <div class="size-block">
+            <div class="size-head">
+              <span id="sizeLabel">Size</span>
+              <span class="size-note" id="sizeNote"></span>
+            </div>
+            <div class="size-set" id="sizeSet" role="group" aria-labelledby="sizeLabel"></div>
+          </div>
+
+          <dl class="product-spec" id="productSpec"></dl>
+
+          <button class="solid-button product-add" id="productAdd">Add to cart</button>
+          <div class="product-nav">
+            <button class="text-link" id="productPrev">&larr; Previous</button>
+            <button class="text-link" id="productNext">Next &rarr;</button>
+          </div>
+        </div>
+      </div>
+    </dialog>
+
+    <!-- ============================= DROP BAR ============================= -->
+    <div class="dropbar" id="dropbar">
+      <p class="dropbar-label">Drop 07 closes in</p>
+      <div class="clock" id="clock" role="timer" aria-live="off">
+        <span class="unit"><b id="clockDays">00</b><i>Days</i></span>
+        <span class="sep" aria-hidden="true">:</span>
+        <span class="unit"><b id="clockHours">00</b><i>Hours</i></span>
+        <span class="sep" aria-hidden="true">:</span>
+        <span class="unit"><b id="clockMins">00</b><i>Mins</i></span>
+        <span class="sep" aria-hidden="true">:</span>
+        <span class="unit"><b id="clockSecs">00</b><i>Secs</i></span>
+      </div>
+      <p class="visually-hidden" id="clockText" role="status" aria-live="polite"></p>
+    </div>
+
+    <script src="js/products.js" defer></script>
+    <script src="js/garments.js" defer></script>
+    <script src="js/shop.js" defer></script>
+    <script src="js/cart.js" defer></script>
+    <script src="js/product.js" defer></script>
+    <script src="js/panels.js" defer></script>
+    <script src="js/theme.js" defer></script>
+    <script src="js/countdown.js" defer></script>
+    <script src="js/motion.js" defer></script>
+    <script src="js/main.js" defer></script>
+  </body>
+</html>

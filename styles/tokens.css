@@ -1,0 +1,80 @@
+/* ==========================================================================
+   Design tokens — PROJECT 1900 ST storefront
+   Utility-brutalist: flat ground, one monospace, one alarm red, no chrome.
+   Every colour and measure lives here; nothing downstream hardcodes a value.
+   ========================================================================== */
+
+:root {
+  /* --- Ground and ink (light) ------------------------------------------- */
+  --ground: #e9e9e9;
+  --ground-raised: #f2f2f2;
+  --ink: #101010;
+  --ink-mute: #5c5c5c; /* 6.1:1 on --ground */
+  --rule: rgba(16, 16, 16, 0.22);
+  --rule-firm: rgba(16, 16, 16, 0.55);
+
+  /* --- The one accent: drop-alarm red ----------------------------------- */
+  --alert: #ac0000;
+  --alert-ink: #f2f2f2;
+
+  /* --- Garment rendering ------------------------------------------------ */
+  --garment-edge: rgba(16, 16, 16, 0.28);
+  --garment-shadow: rgba(16, 16, 16, 0.1);
+
+  /* --- Type ------------------------------------------------------------- */
+  --font: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --t-micro: 0.625rem; /* 10px — clock units, badges */
+  --t-small: 0.75rem; /* 12px */
+  --t-base: 0.8125rem; /* 13px — the shop runs at this size */
+  --t-lede: 0.9375rem;
+  --t-title: clamp(1.25rem, 1rem + 1.1vw, 2rem);
+  --t-clock: clamp(1.5rem, 1.1rem + 1.6vw, 2.25rem);
+
+  --track: 0.14em;
+  --track-wide: 0.22em;
+
+  /* --- Measures ---------------------------------------------------------- */
+  --rail-w: 16.5rem;
+  --pad: clamp(1.25rem, 0.6rem + 2vw, 3.75rem);
+  --gap: clamp(1.5rem, 0.5rem + 3vw, 4rem);
+  --dropbar-h: 4.75rem;
+  --topbar-h: 4rem;
+
+  /* --- Motion ------------------------------------------------------------ */
+  --fast: 140ms;
+  --mid: 260ms;
+  --slow: 520ms;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  /* --- Layering ---------------------------------------------------------- */
+  --z-rail: 20;
+  --z-topbar: 25;
+  --z-scrim: 30;
+  --z-panel: 40;
+  --z-drop: 45;
+  --z-dialog: 50;
+}
+
+/* --- Dark ---------------------------------------------------------------- */
+
+:root[data-theme="dark"] {
+  --ground: #111111;
+  --ground-raised: #1b1b1b;
+  --ink: #ededed;
+  --ink-mute: #9d9d9d; /* 6.4:1 on --ground */
+  --rule: rgba(237, 237, 237, 0.24);
+  --rule-firm: rgba(237, 237, 237, 0.6);
+
+  --alert: #d10000;
+  --alert-ink: #ffffff;
+
+  --garment-edge: rgba(237, 237, 237, 0.42);
+  --garment-shadow: rgba(0, 0, 0, 0.45);
+}
+
+@media (prefers-reduced-data: reduce) {
+  :root {
+    --slow: 0ms;
+  }
+}

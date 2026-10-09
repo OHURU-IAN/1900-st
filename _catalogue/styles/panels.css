@@ -1,0 +1,394 @@
+/* ==========================================================================
+   Side panels (contents + shortlist), scrim, and the catalogue entry dialog
+   ========================================================================== */
+
+.panel {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  z-index: var(--z-panel);
+  display: flex;
+  flex-direction: column;
+  width: min(27rem, 90vw);
+  background-color: var(--paper);
+  box-shadow: var(--lift-panel);
+  transition: transform var(--dur-mid) var(--ease-inout);
+  visibility: hidden;
+}
+
+.drawer {
+  left: 0;
+  border-right: 1px solid var(--rule-firm);
+  transform: translateX(-101%);
+}
+
+.shortlist {
+  right: 0;
+  border-left: 1px solid var(--rule-firm);
+  transform: translateX(101%);
+}
+
+.panel.is-open {
+  transform: translateX(0);
+  visibility: visible;
+}
+
+.panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-md) var(--space-sm);
+  border-bottom: 1px solid var(--rule-firm);
+}
+
+.panel-title {
+  font-size: var(--text-micro);
+}
+
+/* --- Contents drawer ------------------------------------------------------ */
+
+.drawer-nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.drawer-nav a {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  border-bottom: 1px solid var(--rule-hair);
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 1.1rem + 1vw, 1.9rem);
+  font-weight: 300;
+  font-variation-settings: "opsz" 60, "WONK" 1;
+  text-decoration: none;
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out),
+    padding-left var(--dur-mid) var(--ease-out);
+}
+
+.drawer-nav a:hover {
+  background-color: var(--ink);
+  color: var(--paper);
+  padding-left: var(--space-lg);
+}
+
+.nav-no {
+  font-family: var(--font-text);
+  font-size: var(--text-micro);
+  letter-spacing: var(--tracking-mark);
+  color: var(--ink-muted);
+}
+
+.drawer-nav a:hover .nav-no {
+  color: color-mix(in srgb, var(--paper) 72%, transparent);
+}
+
+.drawer-foot {
+  margin-top: auto;
+  padding: var(--space-md);
+  border-top: 1px solid var(--rule-hair);
+  font-size: var(--text-small);
+  color: var(--ink-muted);
+}
+
+/* --- Shortlist ------------------------------------------------------------ */
+
+.shortlist-empty {
+  padding: var(--space-md);
+  font-family: var(--font-display);
+  font-size: var(--text-lede);
+  color: var(--ink-muted);
+  text-wrap: pretty;
+}
+
+.shortlist-items {
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-y: auto;
+}
+
+.shortlist-items li {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr) auto;
+  gap: var(--space-sm);
+  align-items: baseline;
+  padding: var(--space-sm) var(--space-md);
+  border-bottom: 1px solid var(--rule-hair);
+}
+
+.shortlist-no {
+  font-size: var(--text-micro);
+  letter-spacing: var(--tracking-wide);
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-muted);
+}
+
+.shortlist-name {
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  font-variation-settings: "opsz" 28, "WONK" 1;
+  line-height: 1.2;
+}
+
+.shortlist-price {
+  display: block;
+  font-family: var(--font-text);
+  font-size: var(--text-small);
+  color: var(--ink-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.shortlist-remove {
+  align-self: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid var(--rule-hair);
+  background: none;
+  color: var(--ink-muted);
+  line-height: 1;
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.shortlist-remove:hover {
+  background-color: var(--ink-accent);
+  border-color: var(--ink-accent);
+  color: var(--paper);
+}
+
+.shortlist-foot {
+  display: grid;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  border-top: 1px solid var(--rule-firm);
+}
+
+.shortlist-total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  font-size: var(--text-micro);
+  letter-spacing: var(--tracking-mark);
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+.shortlist-total span:last-child {
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.shortlist-foot .link-button {
+  justify-self: center;
+}
+
+/* --- Scrim ---------------------------------------------------------------- */
+
+.scrim {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-scrim);
+  background-color: color-mix(in srgb, var(--ink) 42%, transparent);
+  opacity: 0;
+  transition: opacity var(--dur-mid) var(--ease-out);
+}
+
+.scrim.is-visible {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   Entry dialog — one work, set as a catalogue entry
+   ========================================================================== */
+
+.entry {
+  width: min(72rem, 94vw);
+  max-width: none;
+  max-height: 92vh;
+  padding: 0;
+  border: 1px solid var(--rule-firm);
+  background-color: var(--paper);
+  color: var(--ink);
+  overflow: hidden;
+}
+
+.entry::backdrop {
+  /* ::backdrop does not inherit custom properties, and color-mix here is
+     unreliable across engines — state the veil literally. */
+  background-color: rgba(23, 19, 15, 0.62);
+  backdrop-filter: blur(3px);
+}
+
+.entry[open] {
+  animation: entry-in var(--dur-mid) var(--ease-out) both;
+}
+
+@keyframes entry-in {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+}
+
+.entry-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  max-height: 92vh;
+}
+
+.entry-close {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  z-index: 2;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--rule-mid);
+  background-color: var(--paper);
+  line-height: 1;
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.entry-close:hover {
+  background-color: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+.entry-plate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-lg);
+  background-color: var(--paper-recessed);
+  border-right: 1px solid var(--rule-hair);
+}
+
+.entry-plate svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 68vh;
+  border: 1px solid var(--rule-mid);
+  box-shadow: var(--lift-plate);
+}
+
+.entry-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-lg);
+  overflow-y: auto;
+}
+
+.entry-title {
+  font-size: clamp(1.85rem, 1.3rem + 2vw, 3rem);
+  font-weight: 300;
+  font-variation-settings: "opsz" 96, "WONK" 1;
+  line-height: 1.02;
+}
+
+.entry-artist {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--text-lede);
+  color: var(--ink-accent);
+}
+
+.entry-spec {
+  margin: var(--space-sm) 0 0;
+  border-top: 1px solid var(--rule-firm);
+}
+
+.entry-spec > div {
+  display: grid;
+  grid-template-columns: 8rem minmax(0, 1fr);
+  gap: var(--space-sm);
+  align-items: baseline;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--rule-hair);
+}
+
+.entry-spec dt,
+.entry-spec dd {
+  margin: 0;
+}
+
+.entry-spec dd {
+  font-size: var(--text-small);
+}
+
+.entry-note {
+  max-width: var(--measure);
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  font-variation-settings: "opsz" 20, "WONK" 0;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  text-wrap: pretty;
+}
+
+.entry-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  margin-top: auto;
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--rule-firm);
+}
+
+.entry-price {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 1.2rem + 1vw, 2.1rem);
+  font-variant-numeric: tabular-nums;
+}
+
+.entry-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding-top: var(--space-xs);
+}
+
+/* --- Narrow viewports ----------------------------------------------------- */
+
+@media (max-width: 60rem) {
+  .entry-inner {
+    grid-template-columns: minmax(0, 1fr);
+    overflow-y: auto;
+  }
+
+  .entry-plate {
+    border-right: 0;
+    border-bottom: 1px solid var(--rule-hair);
+    padding: var(--space-md);
+  }
+
+  .entry-plate svg {
+    max-height: 42vh;
+    width: auto;
+    max-width: 100%;
+  }
+
+  .entry-body {
+    padding: var(--space-md);
+    overflow: visible;
+  }
+}

@@ -1,0 +1,217 @@
+/* ==========================================================================
+   Main column + the product grid
+   ========================================================================== */
+
+.main {
+  margin-left: var(--rail-w);
+  padding: calc(var(--topbar-h) + 1rem) var(--pad) calc(var(--dropbar-h) + var(--gap));
+  min-height: 100vh;
+}
+
+/* --- Shop heading ---------------------------------------------------------- */
+
+.shop-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 2.75rem;
+}
+
+.shop-title {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  font-size: var(--t-base);
+  font-weight: 500;
+}
+
+.shop-tally {
+  font-size: var(--t-small);
+  color: var(--ink-mute);
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- Grid ------------------------------------------------------------------ */
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--gap) var(--gap);
+  padding-top: var(--gap);
+}
+
+.product-card {
+  position: relative;
+  display: grid;
+  /* Garments hang from a common baseline whatever their proportion. */
+  grid-template-rows: 1fr auto;
+  min-width: 0;
+}
+
+.product-figure {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0 clamp(0.5rem, 2vw, 2rem);
+}
+
+.product-figure svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 30rem;
+  transform: scale(1);
+  transition: transform var(--slow) var(--ease);
+}
+
+.product-card:hover .product-figure svg {
+  transform: scale(1.04);
+}
+
+/* --- Caption ---------------------------------------------------------------- */
+
+.product-caption {
+  padding-top: 1.5rem;
+  text-align: center;
+}
+
+.product-name {
+  font-size: var(--t-base);
+  font-weight: 400;
+}
+
+.product-open {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+  transition: color var(--fast) var(--ease);
+}
+
+/* The whole card opens the product. */
+.product-open::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.product-card:hover .product-open,
+.product-open:focus-visible {
+  color: var(--alert);
+}
+
+.product-price {
+  margin-top: 0.35rem;
+  font-size: var(--t-base);
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.product-card[data-state="soldout"] .product-figure svg {
+  opacity: 0.45;
+}
+
+.product-card[data-state="soldout"] .product-price {
+  color: var(--ink-mute);
+  text-decoration: line-through;
+  text-decoration-color: var(--alert);
+}
+
+.product-flag {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  padding: 0.2rem 0.5rem;
+  background-color: var(--alert);
+  color: var(--alert-ink);
+  font-size: var(--t-micro);
+  letter-spacing: var(--track-wide);
+}
+
+.product-card[data-state="soldout"] .product-flag {
+  background: none;
+  border: 1px solid var(--rule-firm);
+  color: var(--ink-mute);
+}
+
+/* Quick-add slip, printed across the foot of the garment on hover. */
+.quick-add {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  bottom: 5.25rem;
+  transform: translate(-50%, 0.5rem);
+  min-height: 2.5rem;
+  padding: 0 1rem;
+  border: 1px solid var(--ink);
+  background-color: var(--ink);
+  color: var(--ground);
+  font-size: var(--t-micro);
+  letter-spacing: var(--track-wide);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity var(--mid) var(--ease),
+    transform var(--mid) var(--ease),
+    background-color var(--fast) var(--ease);
+}
+
+.product-card:hover .quick-add,
+.product-card:focus-within .quick-add {
+  opacity: 1;
+  transform: translate(-50%, 0);
+  pointer-events: auto;
+}
+
+.quick-add:hover {
+  background-color: var(--alert);
+  border-color: var(--alert);
+  color: var(--alert-ink);
+}
+
+/* --- Empty state ------------------------------------------------------------ */
+
+.empty-state {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  padding: var(--gap) 0;
+  color: var(--ink-mute);
+}
+
+.noscript-note {
+  grid-column: 1 / -1;
+  padding: 2rem 0;
+}
+
+/* --- Narrow viewports -------------------------------------------------------- */
+
+@media (max-width: 60rem) {
+  .main {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 48rem) {
+  .product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .quick-add {
+    opacity: 1;
+    transform: translate(-50%, 0);
+    pointer-events: auto;
+  }
+}
+
+@media (max-width: 30rem) {
+  .product-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

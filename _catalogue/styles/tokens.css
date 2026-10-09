@@ -1,0 +1,91 @@
+/* ==========================================================================
+   Design tokens — Project 1900 ST
+   Direction: "Archival Index" — warm paper, hairline ink rules, printed
+   catalogue raisonne. Every value below is deliberate; do not hardcode
+   colours, spacing or type sizes anywhere else in the stylesheets.
+   ========================================================================== */
+
+:root {
+  color-scheme: light;
+
+  /* --- Surfaces: three weights of paper ---------------------------------- */
+  --paper: #f2ede3;
+  --paper-recessed: #e8e1d3;
+  --paper-plate: #fbf8f2;
+
+  /* --- Ink -------------------------------------------------------------- */
+  --ink: #17130f;
+  --ink-soft: #3a342c;
+  --ink-muted: #625948; /* 5.0:1 on --paper */
+
+  /* --- Rules: hairlines, never solid black boxes ------------------------- */
+  --rule-hair: rgba(23, 19, 15, 0.18);
+  --rule-mid: rgba(23, 19, 15, 0.34);
+  --rule-firm: rgba(23, 19, 15, 0.72);
+
+  /* --- Catalogue inks: used semantically, one per medium ----------------- */
+  --ink-painting: #b0392b; /* vermilion */
+  --ink-print: #2c4560; /* indigo    */
+  --ink-sculpture: #5a6b41; /* olive     */
+  --ink-photo: #8a6a2a; /* ochre     */
+  --ink-accent: var(--ink-painting);
+
+  /* --- Type ------------------------------------------------------------- */
+  --font-display: "Fraunces", "Times New Roman", Georgia, serif;
+  --font-text: "Space Grotesk", "Helvetica Neue", Arial, sans-serif;
+
+  --text-micro: 0.6875rem; /* 11px — running heads, marks only */
+  --text-small: 0.8125rem; /* 13px */
+  --text-body: clamp(0.9375rem, 0.9rem + 0.18vw, 1.0625rem);
+  --text-lede: clamp(1.0625rem, 1rem + 0.4vw, 1.375rem);
+  --text-section: clamp(2rem, 1.2rem + 3.2vw, 4rem);
+  --text-hero: clamp(3.25rem, 0.5rem + 12vw, 11rem);
+  --text-figure: clamp(2.5rem, 1.5rem + 4vw, 5rem);
+
+  --leading-tight: 0.86;
+  --leading-snug: 1.15;
+  --leading-body: 1.6;
+
+  --tracking-mark: 0.18em;
+  --tracking-wide: 0.09em;
+  --tracking-tight: -0.02em;
+
+  /* --- Space: an editorial rhythm, not uniform padding ------------------- */
+  --space-hair: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.875rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: clamp(3rem, 2rem + 4vw, 6rem);
+  --space-section: clamp(4.5rem, 3rem + 6vw, 9rem);
+
+  --gutter: clamp(1.125rem, 0.5rem + 2.4vw, 3.5rem);
+  --measure: 62ch;
+
+  /* --- Motion ----------------------------------------------------------- */
+  --dur-fast: 160ms;
+  --dur-mid: 280ms;
+  --dur-slow: 620ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* --- Elevation: paper lifting off paper, never a drop-shadow blob ------ */
+  --lift-plate: 0 1px 0 rgba(23, 19, 15, 0.1), 0 12px 28px -20px rgba(23, 19, 15, 0.55);
+  --lift-panel: 0 0 0 1px var(--rule-hair), -18px 0 60px -40px rgba(23, 19, 15, 0.7);
+
+  /* --- Layering scale --------------------------------------------------- */
+  --z-base: 1;
+  --z-sticky: 10;
+  --z-masthead: 20;
+  --z-scrim: 30;
+  --z-panel: 40;
+  --z-dialog: 50;
+}
+
+@media (max-width: 48rem) {
+  :root {
+    --text-micro: 0.75rem;
+    --text-small: 0.875rem;
+    --text-body: 1rem;
+  }
+}

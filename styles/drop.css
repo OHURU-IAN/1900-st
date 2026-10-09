@@ -1,0 +1,79 @@
+/* ==========================================================================
+   Drop bar — the countdown pinned across the foot of the shop
+   ========================================================================== */
+
+.dropbar {
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: var(--z-drop);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1rem;
+  height: var(--dropbar-h);
+  background-color: var(--alert);
+  color: var(--alert-ink);
+}
+
+.dropbar-label {
+  font-size: var(--t-micro);
+  letter-spacing: var(--track-wide);
+  opacity: 0.85;
+}
+
+.clock {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 3.25rem;
+}
+
+.unit b {
+  font-size: var(--t-clock);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.04em;
+}
+
+.unit i {
+  margin-top: 0.1rem;
+  font-size: var(--t-micro);
+  font-style: normal;
+  letter-spacing: var(--track-wide);
+  opacity: 0.8;
+}
+
+.sep {
+  font-size: var(--t-clock);
+  line-height: 1;
+  transform: translateY(-0.1em);
+  opacity: 0.7;
+}
+
+/* Once the drop closes the bar stops counting and says so. */
+.dropbar.is-closed .clock {
+  opacity: 0.5;
+}
+
+.dropbar.is-closed .dropbar-label {
+  opacity: 1;
+  font-size: var(--t-small);
+}
+
+@media (max-width: 40rem) {
+  .unit {
+    min-width: 2.6rem;
+  }
+
+  .clock {
+    gap: 0.2rem;
+  }
+}

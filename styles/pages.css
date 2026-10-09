@@ -1,0 +1,131 @@
+/* ==========================================================================
+   Information pages — archive, newsletter, shipping, terms, foot
+   ========================================================================== */
+
+.page {
+  padding: var(--gap) 0;
+  border-top: 1px solid var(--rule);
+}
+
+.page h2 {
+  font-size: var(--t-title);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+}
+
+.page-lede {
+  max-width: 52ch;
+  margin-top: 0.75rem;
+  color: var(--ink-mute);
+  font-size: var(--t-lede);
+}
+
+.page h3 {
+  margin-bottom: 0.5rem;
+  font-size: var(--t-small);
+  color: var(--ink-mute);
+  letter-spacing: var(--track-wide);
+}
+
+.page-columns {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--gap);
+  margin-top: 2rem;
+}
+
+.page-columns p {
+  max-width: 42ch;
+}
+
+/* --- Archive ledger --------------------------------------------------------- */
+
+.archive-list {
+  margin: 2rem 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--rule);
+}
+
+.archive-list li {
+  display: grid;
+  grid-template-columns: 6rem minmax(0, 1fr) 8rem 6rem;
+  gap: 1rem;
+  align-items: baseline;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: var(--t-small);
+  transition: color var(--fast) var(--ease);
+}
+
+.archive-list li:hover {
+  color: var(--alert);
+}
+
+.archive-list li span:first-child,
+.archive-list li span:nth-child(3) {
+  color: var(--ink-mute);
+}
+
+.archive-list li span:last-child {
+  text-align: right;
+  color: var(--ink-mute);
+}
+
+/* --- Newsletter -------------------------------------------------------------- */
+
+.signup {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+  max-width: 34rem;
+}
+
+.signup .field {
+  flex: 1 1 16rem;
+  min-width: 0;
+}
+
+.form-status {
+  flex-basis: 100%;
+  min-height: 1.5rem;
+  font-size: var(--t-small);
+  color: var(--alert);
+}
+
+.field.is-invalid input {
+  border-bottom-color: var(--alert);
+}
+
+/* --- Foot --------------------------------------------------------------------- */
+
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: var(--gap) 0 0;
+  border-top: 1px solid var(--rule);
+  font-size: var(--t-small);
+  color: var(--ink-mute);
+}
+
+/* --- Narrow viewports ---------------------------------------------------------- */
+
+@media (max-width: 60rem) {
+  .page-columns {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+  }
+
+  .archive-list li {
+    grid-template-columns: 5rem minmax(0, 1fr) 5.5rem;
+  }
+
+  .archive-list li span:nth-child(3) {
+    display: none;
+  }
+}

@@ -1,0 +1,158 @@
+/* ==========================================================================
+   Rail — the fixed left column: mark, collections, icons, information
+   ========================================================================== */
+
+.rail {
+  position: fixed;
+  top: 0.4rem;
+  bottom: 0;
+  left: 0;
+  z-index: var(--z-rail);
+  width: var(--rail-w);
+  display: flex;
+  flex-direction: column;
+  padding: var(--pad) var(--pad) calc(var(--dropbar-h) + 1rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+/* --- Mark ---------------------------------------------------------------- */
+
+.mark {
+  display: block;
+  width: 100%;
+  max-width: 13.5rem;
+  margin-bottom: 3.5rem;
+}
+
+.mark-emblem {
+  display: block;
+}
+
+.mark-emblem svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  color: var(--ink);
+}
+
+/* --- Collections --------------------------------------------------------- */
+
+.rail-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin-bottom: 3.5rem;
+}
+
+.rail-link {
+  position: relative;
+  min-height: 2.75rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: var(--t-base);
+  letter-spacing: var(--track);
+  color: var(--ink);
+  transition: color var(--fast) var(--ease);
+}
+
+/* A struck-through rule marks the collection you are in. */
+.rail-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.7rem;
+  height: 1px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--mid) var(--ease);
+}
+
+.rail-link:hover {
+  color: var(--alert);
+}
+
+.rail-link:hover::after,
+.rail-link.is-active::after {
+  transform: scaleX(1);
+}
+
+.rail-link.is-active {
+  color: var(--alert);
+}
+
+/* --- Icons --------------------------------------------------------------- */
+
+.rail-icons {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-bottom: 1.25rem;
+}
+
+/* --- Information --------------------------------------------------------- */
+
+.rail-pages {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.rail-pages a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
+  font-size: var(--t-base);
+  color: var(--ink);
+  transition: color var(--fast) var(--ease);
+}
+
+.rail-pages a:hover {
+  color: var(--alert);
+}
+
+.rail-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-rail) - 1);
+  background-color: rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  transition: opacity var(--mid) var(--ease);
+}
+
+.rail-scrim.is-visible {
+  opacity: 1;
+}
+
+/* --- Narrow viewports ----------------------------------------------------- */
+
+@media (max-width: 60rem) {
+  .rail {
+    width: min(20rem, 84vw);
+    background-color: var(--ground);
+    border-right: 1px solid var(--rule);
+    transform: translateX(-101%);
+    visibility: hidden;
+    transition:
+      transform var(--mid) var(--ease),
+      visibility var(--mid) linear;
+  }
+
+  .rail.is-open {
+    transform: translateX(0);
+    visibility: visible;
+  }
+
+  .mark {
+    max-width: 11rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .rail-nav {
+    margin-bottom: 2.5rem;
+  }
+}

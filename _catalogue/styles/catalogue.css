@@ -1,0 +1,448 @@
+/* ==========================================================================
+   Contents bar + plate grid
+   ========================================================================== */
+
+.contents-bar {
+  position: sticky;
+  top: var(--sticky-offset, 0);
+  z-index: var(--z-sticky);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: var(--space-sm) var(--gutter);
+  border-top: 1px solid var(--rule-mid);
+  border-bottom: 1px solid var(--rule-mid);
+  background-color: color-mix(in srgb, var(--paper) 94%, transparent);
+  backdrop-filter: blur(8px);
+}
+
+.filter-set {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+/* Filters read as an index of contents, not as chips. */
+.filter {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  min-height: 2.75rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: var(--text-small);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.filter::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.55rem;
+  height: 1px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-mid) var(--ease-out);
+}
+
+.filter:hover {
+  color: var(--ink);
+}
+
+.filter:hover::after,
+.filter.is-active::after {
+  transform: scaleX(1);
+}
+
+.filter.is-active {
+  color: var(--ink);
+}
+
+.filter-count {
+  font-size: 0.6875rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-muted);
+  opacity: 0.8;
+}
+
+.filter.is-active .filter-count {
+  color: var(--ink-accent);
+  opacity: 1;
+}
+
+.contents-tools {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.sort-field {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.sort-field select {
+  width: auto;
+  min-width: 10.5rem;
+}
+
+.result-tally {
+  font-size: var(--text-micro);
+  letter-spacing: var(--tracking-mark);
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   Plates
+   ========================================================================== */
+
+.catalogue {
+  padding: var(--space-xl) var(--gutter) var(--space-section);
+}
+
+.plate-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-xl) var(--gutter);
+}
+
+.plate {
+  position: relative;
+  display: grid;
+  /* Plates of different proportions hang from a common baseline, the way
+     they would be laid out on a printed page; captions then align. */
+  grid-template-rows: 1fr auto auto;
+  min-width: 0;
+}
+
+/* Editorial break: landscape works run two columns wide. */
+.plate[data-format="wide"] {
+  grid-column: span 2;
+}
+
+.plate[hidden] {
+  display: none;
+}
+
+
+/* --- The plate itself ----------------------------------------------------- */
+
+.plate-art {
+  position: relative;
+  align-self: end;
+  overflow: hidden;
+  background-color: var(--paper-plate);
+  border: 1px solid var(--rule-mid);
+  box-shadow: var(--lift-plate);
+  transition:
+    border-color var(--dur-mid) var(--ease-out),
+    box-shadow var(--dur-mid) var(--ease-out);
+}
+
+.plate-art svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  transform: scale(1);
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+
+.plate:hover .plate-art {
+  border-color: var(--rule-firm);
+  box-shadow:
+    0 1px 0 rgba(23, 19, 15, 0.14),
+    0 26px 44px -30px rgba(23, 19, 15, 0.75);
+}
+
+.plate:hover .plate-art svg {
+  transform: scale(1.035);
+}
+
+/* "View entry" slip, printed along the bottom edge of the plate. */
+.plate-slip {
+  position: absolute;
+  inset: auto 0 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding: 0.55rem var(--space-sm);
+  background-color: color-mix(in srgb, var(--ink) 92%, transparent);
+  color: var(--paper);
+  font-size: var(--text-micro);
+  letter-spacing: var(--tracking-mark);
+  text-transform: uppercase;
+  transform: translateY(101%);
+  transition: transform var(--dur-mid) var(--ease-out);
+}
+
+.plate:hover .plate-slip,
+.plate:focus-within .plate-slip {
+  transform: translateY(0);
+}
+
+/* Reserved / sold works carry a struck stamp instead of a price change only. */
+.plate-stamp {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  padding: 0.2rem 0.5rem;
+  border: 1px solid var(--ink-accent);
+  color: var(--ink-accent);
+  background-color: color-mix(in srgb, var(--paper-plate) 82%, transparent);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: var(--tracking-mark);
+  text-transform: uppercase;
+  transform: rotate(-4deg);
+}
+
+.plate[data-state="sold"] .plate-art,
+.plate[data-state="reserved"] .plate-art {
+  opacity: 0.88;
+}
+
+/* --- Caption -------------------------------------------------------------- */
+
+.plate-caption {
+  display: grid;
+  gap: 0.2rem;
+  padding-top: var(--space-sm);
+}
+
+.plate-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--rule-hair);
+  font-size: var(--text-micro);
+  letter-spacing: var(--tracking-mark);
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+.plate-no {
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+
+.plate-medium::before {
+  content: "";
+  display: inline-block;
+  width: 0.4rem;
+  height: 0.4rem;
+  margin-right: 0.4rem;
+  background-color: var(--medium-ink, var(--ink-muted));
+}
+
+.plate-title {
+  margin-top: 0.45rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 1rem + 0.7vw, 1.7rem);
+  font-weight: 400;
+  font-variation-settings: "opsz" 40, "WONK" 1;
+  line-height: 1.1;
+}
+
+.plate-open {
+  border: 0;
+  padding: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+}
+
+/* Stretched hit area: the whole plate opens the entry. */
+.plate-open::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.plate:hover .plate-title,
+.plate-open:focus-visible {
+  color: var(--ink-accent);
+}
+
+.plate-artist {
+  font-size: var(--text-small);
+  color: var(--ink-soft);
+}
+
+.plate-meta {
+  font-size: var(--text-small);
+  color: var(--ink-muted);
+  line-height: 1.45;
+}
+
+.plate-price {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  margin-top: 0.5rem;
+  padding-top: 0.45rem;
+  border-top: 1px solid var(--rule-hair);
+  font-size: var(--text-small);
+  font-variant-numeric: tabular-nums;
+}
+
+.plate-state {
+  font-size: var(--text-micro);
+  letter-spacing: var(--tracking-mark);
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+.plate[data-state="sold"] .plate-state,
+.plate[data-state="reserved"] .plate-state {
+  color: var(--ink-accent);
+}
+
+/* --- Add control ---------------------------------------------------------- */
+
+.plate-actions {
+  position: relative;
+  z-index: 3;
+  margin-top: var(--space-sm);
+}
+
+.plate-add {
+  width: 100%;
+  min-height: 2.75rem;
+  border: 1px solid var(--rule-mid);
+  background: transparent;
+  font-size: var(--text-micro);
+  letter-spacing: var(--tracking-mark);
+  text-transform: uppercase;
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out);
+}
+
+.plate-add:hover {
+  background-color: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+.plate-add[aria-pressed="true"] {
+  background-color: var(--ink-accent);
+  border-color: var(--ink-accent);
+  color: var(--paper-plate);
+}
+
+/* --- Empty state ---------------------------------------------------------- */
+
+.empty-state {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-xl) 0;
+  border-top: 1px solid var(--rule-hair);
+  font-family: var(--font-display);
+  font-size: var(--text-lede);
+  color: var(--ink-soft);
+}
+
+.empty-mark {
+  color: var(--ink-accent);
+}
+
+.noscript-note {
+  grid-column: 1 / -1;
+  padding: var(--space-lg);
+  border: 1px solid var(--rule-mid);
+  font-family: var(--font-display);
+  font-size: var(--text-lede);
+}
+
+/* --- Narrow viewports ----------------------------------------------------- */
+
+@media (max-width: 64rem) {
+  .plate-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .contents-tools {
+    flex: 1;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 48rem) {
+  .contents-bar {
+    position: static;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-sm);
+  }
+
+  /* Flex items default to min-width:auto, which was refusing to shrink and
+     pushing the whole page sideways. */
+  .contents-bar > *,
+  .contents-tools > * {
+    min-width: 0;
+  }
+
+  .contents-tools {
+    flex-wrap: wrap;
+    row-gap: var(--space-xs);
+  }
+
+  .sort-field {
+    flex: 1 1 11rem;
+  }
+
+  .sort-field select {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .filter-set {
+    gap: var(--space-md);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .filter-set::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filter {
+    white-space: nowrap;
+  }
+
+  .plate-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .plate[data-format="wide"] {
+    grid-column: span 1;
+  }
+
+  .plate-slip {
+    transform: translateY(0);
+  }
+}

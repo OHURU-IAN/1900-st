@@ -1,0 +1,54 @@
+/* ==========================================================================
+   Motion — scroll reveals and the reduced-motion contract.
+   Only transform and opacity are animated.
+   ========================================================================== */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(1.5rem);
+  transition:
+    opacity var(--dur-slow) var(--ease-out),
+    transform var(--dur-slow) var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+[data-reveal].is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Plates arrive from slightly further, so the grid reads as a sequence of
+   sheets being laid down rather than a block fading in. */
+.plate[data-reveal] {
+  transform: translateY(2.25rem);
+}
+
+/* If JavaScript never runs, nothing should stay invisible. */
+.no-js [data-reveal] {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+
+  .plate:hover .plate-art svg {
+    transform: none;
+  }
+}
