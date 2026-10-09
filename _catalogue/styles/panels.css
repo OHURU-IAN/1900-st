@@ -392,3 +392,23 @@
     overflow: visible;
   }
 }
+
+@media (max-width: 40rem) {
+  /* Phones: the entry becomes a full-screen sheet. */
+  .entry {
+    width: 100vw;
+    height: 100dvh;
+    max-height: 100dvh;
+    margin: 0;
+    border: 0;
+  }
+
+  .entry-inner {
+    height: 100%;
+    max-height: 100dvh;
+  }
+
+  .entry-spec > div {
+    grid-template-columns: 6.5rem minmax(0, 1fr);
+  }
+}

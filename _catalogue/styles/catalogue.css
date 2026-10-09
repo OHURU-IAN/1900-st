@@ -434,15 +434,24 @@
   }
 
   .plate-grid {
+    gap: var(--space-lg) var(--gutter);
+  }
+}
+
+/* Touch devices and small screens have no hover to reveal the slip. */
+@media (max-width: 48rem), (hover: none) {
+  .plate-slip {
+    transform: translateY(0);
+  }
+}
+
+/* Phones: one plate per row. Tablets keep two. */
+@media (max-width: 34rem) {
+  .plate-grid {
     grid-template-columns: minmax(0, 1fr);
-    gap: var(--space-lg);
   }
 
   .plate[data-format="wide"] {
     grid-column: span 1;
-  }
-
-  .plate-slip {
-    transform: translateY(0);
   }
 }

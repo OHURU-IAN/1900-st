@@ -147,3 +147,16 @@
     min-width: 0;
   }
 }
+
+/* Phones: the sticky head was a quarter of the screen. The running head is
+   decorative, and the colophon below carries the issue details, so it goes. */
+@media (max-width: 40rem) {
+  .running-head {
+    display: none;
+  }
+
+  .masthead-bar {
+    padding-block: 0.5rem;
+    row-gap: 0.5rem;
+  }
+}
