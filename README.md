@@ -11,40 +11,21 @@ python -m http.server 8000
 # → http://localhost:8000
 ```
 
-## Status — the storefront does not run yet
+Live at <https://ohuru-ian.github.io/1900-st/>.
 
-The markup and the stylesheets are finished. The behaviour is not. As it stands,
-`index.html` loads ten scripts and **six of them do not exist**, and two of the four that
-do are left over from a different project.
+## Scripts
 
-Open the console and you get six 404s, then a `TypeError` from `main.js` before anything
-boots. The page still renders — the stylesheets are fine — but it is frozen: the grid
-stays empty, and the cart, dialog, theme toggle and countdown are all inert.
-
-| `js/` | |
-|---|---|
-| `products.js` | **Done.** The release record — twelve garments. |
-| `motion.js` | **Reusable.** Generic: observes `[data-reveal]`, honours `prefers-reduced-motion`. |
-| `main.js` | **Stale.** Catalogue-era. Boots `shortlist`/`entry`/`catalogue`, measures `.masthead`, wires `#enquiryForm` — none of which exist here. |
-| `panels.js` | **Stale.** Catalogue-era. Registers `#drawer`/`#menuButton`/`#shortlistPanel`; only `#scrim` still exists. |
-| `garments.js` | Missing. |
-| `shop.js` | Missing. |
-| `cart.js` | Missing. |
-| `product.js` | Missing. |
-| `theme.js` | Missing. |
-| `countdown.js` | Missing. |
-
-This is a clean mid-migration state, not damage. The catalogue that used to live at the
-root was moved into `_catalogue/` intact, the shop was rebuilt over it markup-first, and
-work stopped after the data module. `main.js` and `panels.js` simply predate the move.
-
-### What the markup expects
-
-Each missing module has its DOM already in place, so the contract is fixed. Every ID below
-exists in `index.html` today.
+All plain scripts sharing a `window.P1900` namespace, loaded with `defer` in this order:
+`products` → `dom` → `garments` → `shop` → `cart` → `product` → `panels` → `theme` →
+`countdown` → `motion` → `main` (which boots them).
 
 | Module | Drives |
 |---|---|
+| `products.js` | The release record — twelve garments, plus derived helpers. |
+| `dom.js` | The shared element helper. Text always goes in as `textContent`. |
+| `panels.js` | The cart panel, the rail as a drawer below 60rem, their scrims, and the shared scroll lock. |
+| `motion.js` | Scroll reveals on `[data-reveal]`; honours `prefers-reduced-motion`. |
+| `main.js` | Boot order, reveal targets, and the `#signupForm` newsletter form. |
 | `garments.js` | Draws a garment as SVG from a product's `cut`, `print` and `palette`. Styled via `.product-figure svg`; also fills `#markEmblem`. |
 | `shop.js` | Builds `.product-card`s into `#productGrid`. Rail filters (`[data-filter]`), `#searchInput`, `#collectionName`, `#resultCount`, `#clearSearch`, `#emptyState`, `[data-reset]`. Marks sold-out cards `data-state="soldout"`. |
 | `cart.js` | `#cartPanel` — `#cartItems`, `#cartCount`, `#cartTotal`, `#cartEmpty`, `#cartFoot`, `#clearCart`, `#cartCheckout`. Persistence is a choice, not a given. |
@@ -52,10 +33,20 @@ exists in `index.html` today.
 | `theme.js` | `#themeToggle` → `data-theme="dark"` on `:root`. The dark palette is already defined in `tokens.css`. |
 | `countdown.js` | `#clockDays`/`#clockHours`/`#clockMins`/`#clockSecs`, plus `#clockText` for the screen-reader status. |
 
-`main.js` and `panels.js` need rewriting against the shop's DOM: the panel register is now
-the cart alone (`#cartPanel` / `#cartButton` / `#closeCartButton`), the rail gets a
-`#railToggle` and `#railScrim` on narrow screens, and the form to wire is `#signupForm`,
-not an enquiry form. `motion.js` can be left alone.
+The cart persists in `localStorage` (and works for the visit if storage is blocked). The
+countdown is theatre: the drop "closes" every Friday at 18:00 local time and rolls over.
+
+### Breakpoints
+
+| Width | Layout |
+|---|---|
+| > 60rem | Fixed rail, three-column grid, two-column product dialog. |
+| ≤ 60rem | Rail becomes a drawer under the top bar (Menu button); dialog stacks. |
+| ≤ 48rem | Two-column grid; quick-add always visible (also on any touch device). |
+| ≤ 40rem | Search collapses to an icon that opens a field; dialog becomes a full-screen sheet. |
+| ≤ 30rem | One-column grid; top-bar Checkout link hidden (checkout is in the cart). |
+
+Touch devices get 44px targets on the cart's quantity and remove controls.
 
 ## The record
 

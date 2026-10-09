@@ -6,7 +6,7 @@
   position: fixed;
   top: 0.4rem;
   right: 0;
-  bottom: 0;
+  bottom: var(--dropbar-h); /* the drop bar sits above panels; don't hide the foot behind it */
   z-index: var(--z-panel);
   display: flex;
   flex-direction: column;
@@ -23,6 +23,10 @@
 .cart.is-open {
   transform: translateX(0);
   visibility: visible;
+  /* Visible at once on open, so focus can move in; fades out on close. */
+  transition:
+    transform var(--mid) var(--ease),
+    visibility 0s linear;
 }
 
 .panel-head {
@@ -226,7 +230,8 @@
   color: var(--alert-ink);
 }
 
-.product-figure {
+/* Dialog rules are scoped to .product: the grid cards share these class names. */
+.product .product-figure {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -235,7 +240,7 @@
   border-right: 1px solid var(--rule);
 }
 
-.product-figure svg {
+.product .product-figure svg {
   width: 100%;
   height: auto;
   max-height: 66vh;
@@ -245,6 +250,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
+  max-height: 90vh; /* the body scrolls; the figure column stays whole */
   padding: var(--pad);
   overflow-y: auto;
 }
@@ -255,7 +261,8 @@
   color: var(--ink-mute);
 }
 
-.product-name {
+.product .product-name {
+  padding-right: 3rem; /* clear of the close button */
   font-size: var(--t-title);
   font-weight: 500;
   letter-spacing: 0.05em;
@@ -376,18 +383,67 @@
     overflow-y: auto;
   }
 
-  .product-figure {
+  .product .product-figure {
     border-right: 0;
     border-bottom: 1px solid var(--rule);
   }
 
-  .product-figure svg {
-    max-height: 40vh;
+  .product .product-figure svg {
+    max-height: 34vh;
     width: auto;
     max-width: 100%;
   }
 
   .product-body {
+    max-height: none;
     overflow: visible;
   }
+}
+
+@media (max-width: 40rem) {
+  /* Phones: the dialog becomes a full-height sheet. */
+  .product {
+    width: 100vw;
+    max-height: 100dvh;
+    height: 100dvh;
+    margin: 0;
+    border: 0;
+  }
+
+  .product-inner {
+    max-height: 100dvh;
+    height: 100%;
+  }
+
+  .product-spec > div {
+    grid-template-columns: 5.5rem minmax(0, 1fr);
+  }
+}
+
+/* --- Touch: no hover, fingers not cursors --------------------------------------- */
+
+@media (pointer: coarse) {
+  .cart-qty button {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  .cart-remove {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    min-height: 2.75rem;
+    margin-top: 0;
+  }
+}
+
+.cart-qty button[disabled] {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.cart-qty button[disabled]:hover {
+  background: none;
+  border-color: var(--rule);
+  color: inherit;
 }

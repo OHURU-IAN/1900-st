@@ -202,7 +202,10 @@
   .product-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+}
 
+/* Small screens and touch devices have no hover to reveal the slip. */
+@media (max-width: 48rem), (hover: none) {
   .quick-add {
     opacity: 1;
     transform: translate(-50%, 0);

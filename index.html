@@ -26,6 +26,17 @@
     <link rel="stylesheet" href="styles/panels.css" />
     <link rel="stylesheet" href="styles/drop.css" />
     <link rel="stylesheet" href="styles/motion.css" />
+
+    <!-- Set the theme before first paint; theme.js takes over once loaded. -->
+    <script>
+      (function () {
+        var theme = null;
+        try { theme = localStorage.getItem("p1900.theme"); } catch (e) {}
+        if (theme === "dark" || (!theme && matchMedia("(prefers-color-scheme: dark)").matches)) {
+          document.documentElement.setAttribute("data-theme", "dark");
+        }
+      })();
+    </script>
   </head>
 
   <body>
@@ -46,12 +57,12 @@
 
       <form class="search" id="searchForm" role="search">
         <label class="visually-hidden" for="searchInput">Search the shop</label>
-        <span class="search-mark" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <button class="search-mark" id="searchToggle" type="button" aria-label="Search" aria-expanded="false" aria-controls="searchInput">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <circle cx="10.5" cy="10.5" r="6.5" />
             <path d="M15.5 15.5L21 21" stroke-linecap="square" />
           </svg>
-        </span>
+        </button>
         <input id="searchInput" type="search" placeholder="Search" autocomplete="off" spellcheck="false" />
       </form>
 
@@ -290,6 +301,7 @@
     </div>
 
     <script src="js/products.js" defer></script>
+    <script src="js/dom.js" defer></script>
     <script src="js/garments.js" defer></script>
     <script src="js/shop.js" defer></script>
     <script src="js/cart.js" defer></script>

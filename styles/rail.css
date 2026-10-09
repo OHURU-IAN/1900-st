@@ -132,6 +132,8 @@
 
 @media (max-width: 60rem) {
   .rail {
+    /* Opens beneath the top bar so the Menu toggle stays reachable to close it. */
+    top: calc(0.4rem + var(--topbar-h));
     width: min(20rem, 84vw);
     background-color: var(--ground);
     border-right: 1px solid var(--rule);
@@ -145,6 +147,14 @@
   .rail.is-open {
     transform: translateX(0);
     visibility: visible;
+    /* Visible at once on open, so focus can move in; fades out on close. */
+    transition:
+      transform var(--mid) var(--ease),
+      visibility 0s linear;
+  }
+
+  .rail-scrim {
+    top: calc(0.4rem + var(--topbar-h));
   }
 
   .mark {

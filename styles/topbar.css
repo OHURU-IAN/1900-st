@@ -30,7 +30,20 @@
 .search-mark {
   flex: none;
   display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  margin: 0 -0.75rem 0 -0.7rem; /* full tap target, glyph stays where it was */
+  padding: 0;
+  border: 0;
+  background: none;
   color: var(--ink);
+  transition: color var(--fast) var(--ease);
+}
+
+.search-mark:hover {
+  color: var(--alert);
 }
 
 .search-mark svg {
@@ -136,5 +149,17 @@
 
   .search.is-open input {
     display: block;
+  }
+}
+
+/* Small phones: the cart panel carries its own checkout button, so the
+   top-bar link goes to make room for Menu, Search and Cart. */
+@media (max-width: 30rem) {
+  .topbar {
+    gap: 0.75rem;
+  }
+
+  #checkoutLink {
+    display: none;
   }
 }
